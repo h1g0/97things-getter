@@ -8,7 +8,16 @@ def load_access_token_from_file(file_name='access_token.txt'):
         print(result)
         return result
 
-
+def shorten_url(access_token, url):
+    api_url = 'https://api-ssl.bitly.com/v3/shorten'
+    param = {
+            "access_token": access_token,
+            "longUrl": url
+            }
+    req = HTMLSession()
+    res = req.request('GET',api_url, params=param)
+    return res.json()['data']['url']
+'''
 def shorten_url(access_token, url):
     api_url = 'https://api-ssl.bitly.com/v4/shorten'
     requests = HTMLSession()
@@ -16,13 +25,10 @@ def shorten_url(access_token, url):
         'Authorization':'Bearer {}'.format(access_token),
         'Content-Type': 'application/json'}
     requests.headers.update(header)
-    print(requests.headers)
-    data = '{"long_url":"https://dev.bitly.com"}'
-    print(data)
+    data = json.dumps({"long_url":url})
     res = requests.post(api_url,json=data)
-    print(res.content)
-    return 'test'
-
+    return res.json['link']
+'''
 if __name__ == "__main__":
     token = load_access_token_from_file('access_token.txt')
     print(shorten_url(token,'https://google.com/'))
