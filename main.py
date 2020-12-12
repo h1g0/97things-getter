@@ -6,7 +6,7 @@ from requests_html import HTMLSession
 from shorten_url import load_access_token_from_file, shorten_url
 
 base_url = 'https://xn--97-273ae6a4irb6e2hsoiozc2g4b8082p.com/'
-make_url_short = True
+make_url_short = False
 
 def main():
     requests = HTMLSession()
